@@ -26,13 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/logo_img"
+            <TextView
+                android:id="@+id/tv_delivary_details"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/logo" />
+                android:gravity="center_vertical"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:text="@string/delivary_details_lebel" />
         </RelativeLayout>
     </RelativeLayout>
 

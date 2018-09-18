@@ -86,9 +86,10 @@ public class DeliverLocationMapActivity extends FragmentActivity implements OnMa
     }
 
     private void showDetails(DeliverData deliverData){
+        String description = deliverData.getDescription() + " at " + deliverData.getAddress();
         Picasso mPicasso = Picasso.get();
         mPicasso.load(deliverData.getThumbnil()).into(mDeliverImageView);
-        mDeliverItemDesTv.setText(deliverData.getDescription());
+        mDeliverItemDesTv.setText(description);
 
         float dest = 1;
         ObjectAnimator viewAnimation = ObjectAnimator.ofFloat(mDetailsView,
