@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ListViewWithCards</string>
+
+    <string name="title_activity_main">Deliverables</string>
+    <string name="default_description">Default description by Deliver</string>
+</resources>
