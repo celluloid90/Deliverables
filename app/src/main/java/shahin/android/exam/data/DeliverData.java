@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class DeliverData extends ArrayList {
     private String mThumb;
     private String mDescription;
-    private String mTitle;
     private LatLng mLatLong;
     private String mAddress;
 

@@ -30,8 +30,11 @@
             </intent-filter>
         </activity>
         <activity android:name="shahin.android.exam.activity.DeliverLocationMapActivity" />
-        <activity android:name="shahin.android.exam.activity.DeliverablesListActivity"
-            android:label="@string/delivary_list_lebel"/>
+        <activity
+            android:name="shahin.android.exam.activity.DeliverablesListActivity"
+            android:label="@string/delivary_list_lebel" />
     </application>
 
+    <instrumentation android:targetPackage="shahin.android.exam"
+        android:name="android.support.test.runner.AndroidJUnitRunner"/>
 </manifest>

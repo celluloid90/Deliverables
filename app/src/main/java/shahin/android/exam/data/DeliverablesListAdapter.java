@@ -36,18 +36,21 @@ public class DeliverablesListAdapter extends ArrayAdapter<DeliverData> {
 
         DeliverData data = getItem(position);
 
-        Picasso.get().load(data.getThumbnil()).into(holder.imageView);
-        holder.mDescriptionTv.setText(data.getDescription() + " at " + data.getAddress());
+        if(data != null) {
+            Picasso.get().load(data.getThumbnil()).into(holder.mImageView);
+            String description = data.getDescription() + " at " + data.getAddress();
+            holder.mDescriptionTv.setText(description);
+        }
 
         return convertView;
     }
 
     static class ViewHolder {
-        ImageView imageView;
+        ImageView mImageView;
         TextView mDescriptionTv;
 
         ViewHolder(View view) {
-            imageView = (ImageView) view.findViewById(R.id.image);
+            mImageView = (ImageView) view.findViewById(R.id.image);
             mDescriptionTv = (TextView) view.findViewById(R.id.text_description);
         }
     }

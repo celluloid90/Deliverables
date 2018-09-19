@@ -6,16 +6,11 @@ import android.content.SharedPreferences;
 import shahin.android.exam.activity.MainApplication;
 
 public class ShareData {
-    private Context context;
-    //
-    /*
-    Share Preferences Name
-     */
-    public static final String ALL_VERSION = "all_version";
-    public static final String DELIVER_DATA = "deliver_data";
+    private static final String ALL_VERSION = "all_version";
+    private static final String DELIVER_DATA = "deliver_data";
 
     public ShareData(Context context) {
-        this.context = context;
+
     }
 
     public static String getDeliverData() {

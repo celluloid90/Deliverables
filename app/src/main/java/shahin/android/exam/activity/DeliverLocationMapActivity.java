@@ -26,8 +26,6 @@ public class DeliverLocationMapActivity extends FragmentActivity implements OnMa
     private GoogleMap mMap;
     private LatLng mLastLatLng;
 
-    private ArrayList<DeliverData> mDeliverList;
-
     private RelativeLayout mDetailsView;
     private ImageView mDeliverImageView;
     private TextView mDeliverItemDesTv;
@@ -64,8 +62,8 @@ public class DeliverLocationMapActivity extends FragmentActivity implements OnMa
     }
 
     private void setDeliveries() {
-        mDeliverList = MainApplication.mDeliverList;
-        DeliverData deliverData = mDeliverList.get(mDeliverItemPosition);
+        ArrayList<DeliverData> deliverList = MainApplication.mDeliverList;
+        DeliverData deliverData = deliverList.get(mDeliverItemPosition);
 
         mLastLatLng = deliverData.getLatLng();
 

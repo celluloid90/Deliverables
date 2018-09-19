@@ -27,17 +27,13 @@ import shahin.android.exam.data.DeliverData;
 import shahin.android.exam.util.ShareData;
 
 public class SplashActivity extends Activity {
-    private LatLng setLatLng;
-    private BroadcastReceiver broadcastReceiver;
+    private BroadcastReceiver mNetworkReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        //
-        /*
-        Check Network Connenected or NOT, if connected wil call API to get deliver data else use Cached data
-        **/
+
         if(isNetworkConnected()) {
             getDeliveries();
         }else {
@@ -90,43 +86,36 @@ public class SplashActivity extends Activity {
         });
     }
 
-    private boolean initDeliveries(String jsonResult){
+    private void initDeliveries(String jsonResult){
         try {
             JSONArray jsonDeliveriesArray = new JSONArray(jsonResult);
-            //
+
             int totalDeliveries = jsonDeliveriesArray.length();
-            //
+
             String deliverDescription;
             String deliverImageUrl;
             JSONObject jsonDeliveriesLocationObj;
             String deliverLocationLat;
             String deliverLocationLng;
             String deliverAddress;
-            //
             for (int i = 0; i < totalDeliveries; i++) {
                 JSONObject jsonEachDeliveriesObj = jsonDeliveriesArray.getJSONObject(i);
-                //
-                deliverDescription = jsonEachDeliveriesObj.getString("description");
-                deliverImageUrl = jsonEachDeliveriesObj.getString("imageUrl");
-                jsonDeliveriesLocationObj = jsonEachDeliveriesObj.getJSONObject("location");
-                deliverLocationLat = jsonDeliveriesLocationObj.getString("lat");
-                deliverLocationLng = jsonDeliveriesLocationObj.getString("lng");
-                deliverAddress = jsonDeliveriesLocationObj.getString("address");
-                //
-                setLatLng = new LatLng(Double.parseDouble(deliverLocationLat), Double.parseDouble(deliverLocationLng));
-                MainApplication.mDeliverList.add(new DeliverData(deliverImageUrl, deliverDescription, deliverAddress, setLatLng));
+                deliverDescription = jsonEachDeliveriesObj.getString(Constants.TAG_DELIVERABLES_DESCRIPTION);
+                deliverImageUrl = jsonEachDeliveriesObj.getString(Constants.TAG_DELIVERABLES_IMAGE);
+                jsonDeliveriesLocationObj = jsonEachDeliveriesObj.getJSONObject(Constants.TAG_DELIVERABLES_LOCATION);
+                deliverLocationLat = jsonDeliveriesLocationObj.getString(Constants.TAG_DELIVERABLES_LATITUDE);
+                deliverLocationLng = jsonDeliveriesLocationObj.getString(Constants.TAG_DELIVERABLES_LONGITUDE);
+                deliverAddress = jsonDeliveriesLocationObj.getString(Constants.TAG_DELIVERABLES_ADDRESS);
+                LatLng latLng = new LatLng(Double.parseDouble(deliverLocationLat), Double.parseDouble(deliverLocationLng));
+                MainApplication.mDeliverList.add(new DeliverData(deliverImageUrl, deliverDescription, deliverAddress, latLng));
             }
-            //
+
             Intent mainIntent = new Intent(this, DeliverablesListActivity.class);
             startActivity(mainIntent);
             finish();
         } catch (JSONException e) {
             e.printStackTrace();
-            //
-            return false;
         }
-
-        return true;
     }
 
 
@@ -137,8 +126,8 @@ public class SplashActivity extends Activity {
     }
 
     private void checkInternetConnection() {
-        if (broadcastReceiver == null) {
-            broadcastReceiver = new BroadcastReceiver() {
+        if (mNetworkReceiver == null) {
+            mNetworkReceiver = new BroadcastReceiver() {
 
                 @Override
                 public void onReceive(Context context, Intent intent) {
@@ -154,7 +143,7 @@ public class SplashActivity extends Activity {
 
             final IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-            registerReceiver((BroadcastReceiver) broadcastReceiver, intentFilter);
+            registerReceiver((BroadcastReceiver) mNetworkReceiver, intentFilter);
         }
     }
 
@@ -171,9 +160,8 @@ public class SplashActivity extends Activity {
     @Override
     public void onDestroy (){
         super.onDestroy();
-        if (broadcastReceiver != null) {
-            unregisterReceiver(broadcastReceiver);
+        if (mNetworkReceiver != null) {
+            unregisterReceiver(mNetworkReceiver);
         }
-
     }
 }

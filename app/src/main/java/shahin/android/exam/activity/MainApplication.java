@@ -13,7 +13,7 @@ public class MainApplication  extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //
+
         mDeliverList = new ArrayList<DeliverData>();
         mInstance = this;
     }
